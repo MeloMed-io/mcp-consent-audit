@@ -24,7 +24,7 @@ create table if not exists access_log (
   user_id     uuid,
   client_name text,
   action      text not null,                 -- tool.call | resource.read | resource.list | prompt.get
-  target      text not null,                 -- e.g. verso://journals/abc | generate_playlist
+  target      text not null,                 -- e.g. nocturne://journals/abc | generate_playlist
   scope_used  text,
   severity    text not null default 'normal',-- normal | elevated (e.g. raw journal reads)
   decision    text not null,                 -- allow | deny

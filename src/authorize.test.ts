@@ -35,7 +35,7 @@ test("allows a call with sufficient scope and records an allow", async () => {
       token: "tok_good",
       required: "emotions:read",
       action: "resource.read",
-      target: "verso://emotions/timeline",
+      target: "nocturne://emotions/timeline",
     },
   );
   assert.equal(principal.userId, "u1");
@@ -91,7 +91,7 @@ test("denies a missing scope — raw journals are elevated (403)", async () => {
         token: "tok_good",
         required: "journals:read:raw",
         action: "resource.read",
-        target: "verso://journals/abc",
+        target: "nocturne://journals/abc",
         severity: "elevated",
       },
     ),
@@ -149,7 +149,7 @@ test("withConsent denies before the handler runs", async () => {
       required: "journals:read:raw",
       action: "resource.read",
       severity: "elevated",
-      target: (input: { id: string }) => `verso://journals/${input.id}`,
+      target: (input: { id: string }) => `nocturne://journals/${input.id}`,
     },
     async (input: { id: string }) => {
       ran = true;
