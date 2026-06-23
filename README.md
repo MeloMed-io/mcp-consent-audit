@@ -1,5 +1,9 @@
 # mcp-consent-audit
 
+[![CI](https://github.com/MeloMed-io/mcp-consent-audit/actions/workflows/ci.yml/badge.svg)](https://github.com/MeloMed-io/mcp-consent-audit/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/mcp-consent-audit.svg)](https://www.npmjs.com/package/mcp-consent-audit)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
 A small, dependency-free consent + audit layer for [Model Context
 Protocol](https://modelcontextprotocol.io) servers.
 
@@ -97,7 +101,8 @@ Row-Level Security so a server bug can't read across users — see `schema.sql`.
 ## Develop
 
 ```sh
-npm test     # tsc + node --test
+npm test      # tsc + node --test
+npm run example  # runnable end-to-end demo (examples/quickstart.mjs)
 ```
 
 ## License

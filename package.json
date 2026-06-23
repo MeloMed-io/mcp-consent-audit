@@ -1,13 +1,17 @@
 {
   "name": "mcp-consent-audit",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Consent + audit layer for Model Context Protocol (MCP) servers: scoped tokens, revocable grants, and a user-visible access log.",
   "type": "module",
   "license": "MIT",
   "author": "Candy Xie",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/candpixie/mcp-consent-audit.git"
+    "url": "git+https://github.com/MeloMed-io/mcp-consent-audit.git"
+  },
+  "homepage": "https://github.com/MeloMed-io/mcp-consent-audit#readme",
+  "bugs": {
+    "url": "https://github.com/MeloMed-io/mcp-consent-audit/issues"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -32,7 +36,9 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "tsc && node --test \"dist/**/*.test.js\""
+    "test": "tsc && node --test \"dist/**/*.test.js\"",
+    "example": "npm run build && node examples/quickstart.mjs",
+    "prepublishOnly": "npm test"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
