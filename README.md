@@ -20,8 +20,9 @@ is that part.
   store; revocation is enforced in the library.)
 - **Audited** — every decision, allow *and* deny, is recorded — and meant to be
   shown back to the user ("which apps accessed my data, when, and why").
-- **Storage-agnostic** — ships with in-memory stores (tests/dev) and a Postgres
-  adapter that depends on no specific driver.
+- **Storage-agnostic** — ships with in-memory stores (tests/dev), a Postgres
+  adapter that depends on no specific driver, and a tamper-evident GitHub-backed
+  audit mirror.
 
 ## Install
 
@@ -87,6 +88,31 @@ const audit = createPostgresAuditSink(query);
 
 Tokens are stored as `sha256` hashes (`hashToken`), never in the clear. Enable
 Row-Level Security so a server bug can't read across users — see `schema.sql`.
+
+## GitHub-backed audit trail (tamper-evident mirror)
+
+An audit log is only as trustworthy as the box it lives on. `GitHubAuditSink`
+mirrors the trail into a private repo as one append-only `*.jsonl` file per user,
+one commit per entry, so the git history itself becomes the tamper-evidence: an
+entry can't be silently rewritten or dropped without leaving a trace you don't
+control.
+
+```ts
+import { GitHubAuditSink, TeeAuditSink, createPostgresAuditSink } from "mcp-consent-audit";
+
+const mirror = new GitHubAuditSink({
+  owner: "MeloMed-io",
+  repo: "consent-audit-trail",   // a private repo
+  token: process.env.GITHUB_TOKEN!, // fine-grained PAT, Contents: read/write, this repo only
+});
+
+// Write to Postgres (fast reads) AND GitHub (durable evidence); read from the primary.
+const audit = new TeeAuditSink(createPostgresAuditSink(query), mirror);
+```
+
+It talks to two GitHub REST endpoints (`GET`/`PUT /repos/{owner}/{repo}/contents/…`),
+adds no runtime dependencies, and uses the global `fetch` (Node 18+; injectable
+for tests). Concurrent appends are resolved by re-reading and retrying on `409`.
 
 ## Scope rules
 
