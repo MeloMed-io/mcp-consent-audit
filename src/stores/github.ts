@@ -36,7 +36,7 @@ export interface GitHubAuditSinkConfig {
   branch?: string;
   /** Directory the per-user files live under. Default "audit". */
   pathPrefix?: string;
-  /** Committer label shown in the git history. Default the client name on each entry. */
+  /** Committer label shown in the git history. Omit to use the token owner's identity. */
   committer?: { name: string; email: string };
   /** Injectable for tests; defaults to the global fetch. */
   fetchImpl?: typeof fetch;
