@@ -47,6 +47,17 @@ Here is the whole library in one run (`npm run example`):
   adapter that depends on no specific driver, and a tamper-evident GitHub-backed
   audit mirror.
 
+## See it running in Claude
+
+[`examples/mcp-server`](./examples/mcp-server) is a tiny journal MCP server you
+can connect to Claude Desktop in a minute. Claude can read your mood summaries
+but is **blocked** from raw diary entries, and every access is logged. Try it
+without Claude in 30 seconds:
+
+```sh
+cd examples/mcp-server && npm install && npm run smoke
+```
+
 ## What this is NOT
 
 It does one thing, decide then record, and deliberately stays out of everything

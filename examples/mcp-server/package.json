@@ -1,0 +1,16 @@
+{
+  "name": "mcp-consent-audit-example-server",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Example: a journaling MCP server gated by mcp-consent-audit. Claude can read mood summaries but is blocked from raw diary entries.",
+  "scripts": {
+    "start": "node server.mjs",
+    "smoke": "node smoke-test.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "mcp-consent-audit": "file:../..",
+    "zod": "^4.4.3"
+  }
+}
