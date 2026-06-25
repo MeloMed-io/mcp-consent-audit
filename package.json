@@ -7,11 +7,11 @@
   "author": "Candy Xie",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MeloMed-io/mcp-consent-audit.git"
+    "url": "git+https://github.com/candpixie/mcp-consent-audit.git"
   },
-  "homepage": "https://github.com/MeloMed-io/mcp-consent-audit#readme",
+  "homepage": "https://github.com/candpixie/mcp-consent-audit#readme",
   "bugs": {
-    "url": "https://github.com/MeloMed-io/mcp-consent-audit/issues"
+    "url": "https://github.com/candpixie/mcp-consent-audit/issues"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

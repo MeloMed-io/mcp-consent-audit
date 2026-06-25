@@ -1,6 +1,6 @@
 # mcp-consent-audit
 
-[![CI](https://github.com/MeloMed-io/mcp-consent-audit/actions/workflows/ci.yml/badge.svg)](https://github.com/MeloMed-io/mcp-consent-audit/actions/workflows/ci.yml)
+[![CI](https://github.com/candpixie/mcp-consent-audit/actions/workflows/ci.yml/badge.svg)](https://github.com/candpixie/mcp-consent-audit/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/mcp-consent-audit.svg)](https://www.npmjs.com/package/mcp-consent-audit)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
@@ -137,8 +137,8 @@ control.
 import { GitHubAuditSink, TeeAuditSink, createPostgresAuditSink } from "mcp-consent-audit";
 
 const mirror = new GitHubAuditSink({
-  owner: "MeloMed-io",
-  repo: "consent-audit-trail",   // a private repo
+  owner: "your-org",
+  repo: "consent-audit-trail",   // a private repo you control
   token: process.env.GITHUB_TOKEN!, // fine-grained PAT, Contents: read/write, this repo only
 });
 
