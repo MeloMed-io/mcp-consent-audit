@@ -4,13 +4,36 @@
 [![npm](https://img.shields.io/npm/v/mcp-consent-audit.svg)](https://www.npmjs.com/package/mcp-consent-audit)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 
-A small, dependency-free consent + audit layer for [Model Context
-Protocol](https://modelcontextprotocol.io) servers.
+You connected an AI assistant (Claude, an MCP client, your own agent) to your
+app. It can now reach into your users' data. By default there is no per-user
+limit on what it touches, no way for a user to cut it off, and no record of what
+it did.
 
-MCP gives agents a clean way to reach into your app's data and actions. What the
-spec leaves to you is the part that matters most when that data is sensitive:
-**who is allowed to do what, and a trail of who actually did it.** This library
-is that part.
+**`mcp-consent-audit` is that missing piece:** a small, dependency-free consent +
+audit layer for [Model Context Protocol](https://modelcontextprotocol.io)
+servers. It decides whether each call is allowed, lets users revoke access
+instantly, and records every decision so it can be shown back to them.
+
+Here is the whole library in one run (`npm run example`):
+
+```text
+1) in-scope call:                        playlist for candy (mood: calm)
+2) raw journal read she didn't grant:    denied 403: missing_scope
+3) same call AFTER she revokes access:   denied 403: revoked_grant
+4) audit trail (newest first):
+   deny   tool.call      generate_playlist    revoked_grant
+   deny   resource.read  app://journals/abc   missing_scope
+   allow  tool.call      generate_playlist
+```
+
+```
+  agent call ── token + required scope
+       │
+       ▼
+   authorize()  ──►  allow ──┐
+       │                     ├──►  audit log   (every decision: allow + deny)
+       └─────────►  deny ────┘     401 no/invalid token · 403 revoked/missing scope
+```
 
 - **Scoped** — every tool/resource call requires a capability scope; calls
   without it are rejected before your handler runs.
@@ -23,6 +46,19 @@ is that part.
 - **Storage-agnostic** — ships with in-memory stores (tests/dev), a Postgres
   adapter that depends on no specific driver, and a tamper-evident GitHub-backed
   audit mirror.
+
+## What this is NOT
+
+It does one thing, decide then record, and deliberately stays out of everything
+else. It is **not**:
+
+- **not an OAuth server.** You issue tokens however you like; this resolves and
+  checks them.
+- **not a rate limiter or a firewall.**
+- **not a storage engine.** You pick the store (in-memory, Postgres, the
+  GitHub-backed mirror, or your own).
+- **not a framework.** Around 700 lines, zero runtime dependencies. You can read
+  all of it in one sitting.
 
 ## Install
 
